@@ -29,10 +29,10 @@ jobs:
       - name: Compile C-code to a binary
         run: gcc -o helloworld hello.c
         
-      - name: Run The built binary and observe that “hello world” is printed in the terminal:
+      - name: Run The built binary and observe that “hello world” is printed in the terminal
         run: ./helloworld
         
-      - name: Build The docker image:
+      - name: Build The docker image
         run: docker build -t hello:latest .
         
         
