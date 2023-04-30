@@ -35,4 +35,7 @@ jobs:
       - name: Build The docker image
         run: docker build -t hello:latest .
         
+      - name: run a container using The Building image
+        run: docker run hello:latest
+        
         
