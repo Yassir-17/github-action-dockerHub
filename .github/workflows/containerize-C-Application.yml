@@ -32,8 +32,14 @@ jobs:
       - name: Run The built binary and observe that “hello world” is printed in the terminal
         run: ./helloworld
         
+      - name: List files 
+        run: ls -a 
+        
       - name: Build The docker image
         run: docker build -t hello:latest .
+        
+      - name: List Docker Images
+        run: docker images
         
       - name: run a container using The Building image
         run: docker run hello:latest
