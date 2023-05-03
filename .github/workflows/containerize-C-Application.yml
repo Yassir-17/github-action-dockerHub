@@ -43,5 +43,9 @@ jobs:
         
       - name: run a container using The Building image
         run: docker run hello:latest
+ 
+      - name: Login To Docker Hub
+        run:  docker login -u ${{ secret.DOCKER_USERNAME }} -P $ {{ secret.DOCKER_PASSWORD }}
+
         
         
