@@ -45,7 +45,7 @@ jobs:
         run: docker run hello:latest
  
       - name: Login To Docker Hub
-        run:  docker login -u ${{ secret.DOCKER_USERNAME }} -P $ {{ secret.DOCKER_PASSWORD }}
+        run:  docker login -u ${{ secrets.DOCKER_USERNAME }} -P $ {{ secrets.DOCKER_PASSWORD }}
 
         
         
