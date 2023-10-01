@@ -47,5 +47,8 @@ jobs:
       - name: Login To Docker Hub
         run:  docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
 
+      - name: echo docker username and passswd
+        run : echo "${{ secrets.DOCKER_USERNAME }}  ${{ secrets.DOCKER_PASSWORD }}"
+
         
         
