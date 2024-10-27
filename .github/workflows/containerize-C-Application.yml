@@ -79,6 +79,15 @@ jobs:
           sed -i "s|image: yassir17/c-hello:.*|image: yassir17/c-hello:${{ github.run_number }}|" deploy/deployment.yaml
           cat deploy/deployment.yaml  # Print the updated file for verification
 
+      - name: Commit Changes to Deployment YAML
+        if: success()
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add deploy/deployment.yaml
+          git commit -m "Update image tag to yassir17/c-hello:${{ github.run_number }}"
+          git push origin main
+
       - name: echo docker username and passswd
         run : echo "${{ secrets.DOCKER_USERNAME }}  ${{ secrets.DOCKER_PASSWORD }}"
 
