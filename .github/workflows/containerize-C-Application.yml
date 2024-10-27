@@ -40,6 +40,11 @@ jobs:
         
       - name: List Docker Images
         run: docker images
+
+        - name: Push the Image to docker hub
+          run: |
+               docker tag hello:latest yassir17/c-hello:latest
+               docker push yassir17/c-hello:latest 
         
       - name: run a container using The Building image
         run: docker run hello:latest
