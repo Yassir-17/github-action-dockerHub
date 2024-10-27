@@ -69,7 +69,7 @@ jobs:
       - name: Push the Image to docker hub
         if: success()
         run: |
-            docker tag hello:latest yassir17/c-hello:${{ github.run_number }}
+            docker tag hello:${{ github.run_number }} yassir17/c-hello:${{ github.run_number }}
             docker push yassir17/c-hello:${{ github.run_number }} 
             #Push the Docker image only if the Trivy scan passes
 
