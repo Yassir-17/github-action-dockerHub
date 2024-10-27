@@ -43,6 +43,16 @@ jobs:
         
       - name: run a container using The Building image
         run: docker run hello:latest
+
+      - name: Install Trivy
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y wget
+          wget https://github.com/aquasecurity/trivy/releases/download/v0.34.0/trivy_0.34.0_Linux-64bit.deb
+          sudo dpkg -i trivy_0.34.0_Linux-64bit.deb
+
+      - name: Scan Docker Image with Trivy
+        run: trivy image hello:latest
  
       - name: Login To Docker Hub
         run:  docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
