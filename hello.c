@@ -17,7 +17,14 @@ int main() {
     // Run the test
     testHelloMessage();
 
-    // Print the message
-    printf("%s\n", getHelloMessage());
-    return 0;
+    // Infinite loop to keep the program running
+    while (1) {
+        printf("I'm still running\n");
+        // Add a delay if needed (e.g., 1 second):
+        // sleep(1); // Adjust the sleep time as required
+
+        // You can add more code here to perform other tasks
+    }
+
+    return 0; // This line will never be reached due to the infinite loop
 }
