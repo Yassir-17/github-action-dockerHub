@@ -44,13 +44,13 @@ To run the project and test it locally without using Docker:
 
 This will print Hello World to the terminal and run a basic test to verify that the output is correct.
 
-##GitHub Secrets
+## GitHub Secrets
 To securely push images to Docker Hub, add the following secrets in your GitHub repository settings:
 
    * DOCKER_USERNAME: Your Docker Hub username.
    * DOCKER_PASSWORD: Your Docker Hub password.
 
-##Workflow Overview
+## Workflow Overview
 This GitHub Actions workflow is triggered on a push to the main branch or can be manually triggered. It performs the following steps:
     1. Checks out the code from the repository.
     2. Verifies that GCC is installed.
@@ -61,6 +61,6 @@ This GitHub Actions workflow is triggered on a push to the main branch or can be
     7. Scans the Docker image for high and critical vulnerabilities.
     8. If the image passes the scan, it is pushed to Docker Hub.
 
-##License
+## License
 This project is licensed under the MIT License.
 Let me know if you need any further modifications or additions!
