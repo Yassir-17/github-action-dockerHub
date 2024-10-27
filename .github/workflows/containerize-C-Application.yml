@@ -29,7 +29,8 @@ jobs:
       - name: Compile C-code to a binary
         run: gcc -o helloworld hello.c
         
-      - name: Run The built binary and observe that “hello world” is printed in the terminal
+      #step to run the test
+      - name: Run Tests
         run: ./helloworld
         
       - name: List files 
