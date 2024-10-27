@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <string.h>
 #include <assert.h>
-#include <unistd.h> // For sleep function
 
 // Function to return the "Hello World" message
 const char* getHelloMessage() {
@@ -20,13 +19,5 @@ int main() {
 
     // Print the message
     printf("%s\n", getHelloMessage());
-
-    // Keep the program running without re-running the test
-    while (1) {
-        // Optional: Print the message every 10 seconds to show it's still running
-        printf("Still running...\n");
-        sleep(10); // Sleep for 10 seconds
-    }
-
     return 0;
 }
