@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: hello-world-container
-          image: yassir17/c-hello:47
+          image: yassir17/c-hello:49
          # command:
           #- "/bin/sh"
           #- "-c"
