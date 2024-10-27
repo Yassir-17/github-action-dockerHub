@@ -52,14 +52,15 @@ To securely push images to Docker Hub, add the following secrets in your GitHub 
 
 ## Workflow Overview
 This GitHub Actions workflow is triggered on a push to the main branch or can be manually triggered. It performs the following steps:
-    1. Checks out the code from the repository.
-    2. Verifies that GCC is installed.
-    3. Compiles the C code to create a binary.
-    4. Runs tests to verify functionality.
-    5. Builds a Docker image of the application.
-    6. Installs Trivy for vulnerability scanning.
-    7. Scans the Docker image for high and critical vulnerabilities.
-    8. If the image passes the scan, it is pushed to Docker Hub.
+
+1. Checks out the code from the repository.
+2. Verifies that GCC is installed.
+3. Compiles the C code to create a binary.
+4. Runs tests to verify functionality.
+5. Builds a Docker image of the application.
+6. Installs Trivy for vulnerability scanning.
+7. Scans the Docker image for high and critical vulnerabilities.
+8. If the image passes the scan, it is pushed to Docker Hub.
 
 ## License
 This project is licensed under the MIT License.
