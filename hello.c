@@ -21,9 +21,11 @@ int main() {
     // Print the message
     printf("%s\n", getHelloMessage());
 
-    // Infinite loop to keep the program running
+    // Keep the program running without re-running the test
     while (1) {
-        sleep(5); // Sleep for 5 seconds to avoid busy waiting
+        // Optional: Print the message every 10 seconds to show it's still running
+        printf("Still running...\n");
+        sleep(10); // Sleep for 10 seconds
     }
 
     return 0;
