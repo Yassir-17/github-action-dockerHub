@@ -17,5 +17,9 @@ spec:
       containers:
         - name: hello-world-container
           image: yassir17/c-hello:40
+          command:
+          - "/bin/sh"
+          - "-c"
+          - "sleep 600"
           #ports:
             #- containerPort: 80  # Adjust this if your app uses a different port
