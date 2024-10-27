@@ -4,7 +4,7 @@
 
 // Function to return the "Hello World" message
 const char* getHelloMessage() {
-    return "Hello World";
+    return "He1lo World";
 }
 
 // Function to test that the output is "Hello World"
