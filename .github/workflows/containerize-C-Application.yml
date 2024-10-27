@@ -37,7 +37,7 @@ jobs:
         run: ls -a 
         
       - name: Build The docker image
-        run: docker build -t hello:latest .
+        run: docker build -t hello:${{ github.run_number }} .
         
       - name: List Docker Images
         run: docker images 
@@ -55,13 +55,13 @@ jobs:
       - name: Scan Docker Image with Trivy
         #scan and check for high/critical vulnerabilities
         run: |
-           #trivy image hello:latest 
-           docker run --rm -v /var/run/docker.sock:/var/run/docker.sock aquasec/trivy:latest image --severity HIGH,CRITICAL --exit-code 1 hello:latest
+           #trivy image hello:${{ github.run_number }} 
+           docker run --rm -v /var/run/docker.sock:/var/run/docker.sock aquasec/trivy:latest image --severity HIGH,CRITICAL --exit-code 1 hello:${{ github.run_number }}
            #--severity HIGH,CRITICAL --exit-code 1 ensures the workflow fails if high or critical vulnerabilities are found.
      
       - name: run a container using The Built image
         if: success()
-        run: docker run hello:latest
+        run: docker run hello:${{ github.run_number }}
 
         #fail the workflow if any "high" or "critical" vulnerabilities are found.
         #if: success() allows pushing the image to Docker Hub only 
@@ -69,8 +69,8 @@ jobs:
       - name: Push the Image to docker hub
         if: success()
         run: |
-            docker tag hello:latest yassir17/c-hello:latest
-            docker push yassir17/c-hello:latest 
+            docker tag hello:latest yassir17/c-hello:${{ github.run_number }}
+            docker push yassir17/c-hello:${{ github.run_number }} 
             #Push the Docker image only if the Trivy scan passes
 
       - name: echo docker username and passswd
