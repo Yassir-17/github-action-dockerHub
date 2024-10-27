@@ -40,9 +40,9 @@ jobs:
         
       - name: List Docker Images
         run: docker images 
-        
-      - name: run a container using The Building image
-        run: docker run hello:latest
+
+      - name: Login To Docker Hub
+        run:  docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Install Trivy
         run: |
@@ -50,17 +50,27 @@ jobs:
           sudo apt-get install -y wget
           wget https://github.com/aquasecurity/trivy/releases/download/v0.34.0/trivy_0.34.0_Linux-64bit.deb
           sudo dpkg -i trivy_0.34.0_Linux-64bit.deb
-
+      
       - name: Scan Docker Image with Trivy
-        run: trivy image hello:latest
- 
-      - name: Login To Docker Hub
-        run:  docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+        #scan and check for high/critical vulnerabilities
+        run: |
+           #trivy image hello:latest 
+           docker run --rm -v /var/run/docker.sock:/var/run/docker.sock aquasec/trivy:latest image --severity HIGH,CRITICAL --exit-code 1 hello:latest
+           #--severity HIGH,CRITICAL --exit-code 1 ensures the workflow fails if high or critical vulnerabilities are found.
+     
+      - name: run a container using The Built image
+        if: success()
+        run: docker run hello:latest
 
+        #fail the workflow if any "high" or "critical" vulnerabilities are found.
+        #if: success() allows pushing the image to Docker Hub only 
+        #if the Trivy scan passes without high or critical vulnerabilities.
       - name: Push the Image to docker hub
+        if: success()
         run: |
             docker tag hello:latest yassir17/c-hello:latest
-            docker push yassir17/c-hello:latest
+            docker push yassir17/c-hello:latest 
+            #Push the Docker image only if the Trivy scan passes
 
       - name: echo docker username and passswd
         run : echo "${{ secrets.DOCKER_USERNAME }}  ${{ secrets.DOCKER_PASSWORD }}"
