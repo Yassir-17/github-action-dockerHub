@@ -73,6 +73,12 @@ jobs:
             docker push yassir17/c-hello:${{ github.run_number }} 
             #Push the Docker image only if the Trivy scan passes
 
+      - name: Update Deployment Image Tag
+        if: success()
+        run: |
+          sed -i "s|image: yassir17/c-hello:.*|image: yassir17/c-hello:${{ github.run_number }}|" deploy/deployment.yaml
+          cat deploy/deployment.yaml  # Print the updated file for verification
+
       - name: echo docker username and passswd
         run : echo "${{ secrets.DOCKER_USERNAME }}  ${{ secrets.DOCKER_PASSWORD }}"
 
