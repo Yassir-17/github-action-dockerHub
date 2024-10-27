@@ -16,6 +16,6 @@ spec:
     spec:
       containers:
         - name: hello-world-container
-          image: yassir17/c-hello:latest  
+          image: yassir17/c-hello:37
           #ports:
             #- containerPort: 80  # Adjust this if your app uses a different port
