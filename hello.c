@@ -1,6 +1,23 @@
 #include <stdio.h>
- 
+#include <string.h>
+#include <assert.h>
+
+// Function to return the "Hello World" message
+const char* getHelloMessage() {
+    return "Hello World";
+}
+
+// Function to test that the output is "Hello World"
+void testHelloMessage() {
+    assert(strcmp(getHelloMessage(), "Hello World") == 0);
+    printf("Test passed: getHelloMessage() returns 'Hello World'\n");
+}
+
 int main() {
-    printf("Hello World");
+    // Run the test
+    testHelloMessage();
+
+    // Print the message
+    printf("%s\n", getHelloMessage());
     return 0;
 }
