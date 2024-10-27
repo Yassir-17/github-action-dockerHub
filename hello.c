@@ -4,6 +4,9 @@
 #include <unistd.h>
 #include <arpa/inet.h>
 #include <assert.h>
+#include <signal.h>
+
+volatile sig_atomic_t stop = 0;
 
 // Function to return the "Hello World" message
 const char* getHelloMessage() {
@@ -16,6 +19,7 @@ const char* testHelloMessage() {
     return "Test passed: getHelloMessage() returns 'Hello World'";
 }
 
+// Function to handle incoming client requests
 void handle_client(int client_socket) {
     char buffer[1024];
     int bytes_read = read(client_socket, buffer, sizeof(buffer) - 1);
@@ -43,10 +47,21 @@ void handle_client(int client_socket) {
     close(client_socket);
 }
 
+// Signal handler to gracefully stop the server
+void handle_signal(int signal) {
+    if (signal == SIGINT || signal == SIGTERM) {
+        stop = 1; // Set the stop flag
+    }
+}
+
 int main() {
     int server_fd, client_socket;
     struct sockaddr_in server_addr, client_addr;
     socklen_t client_addr_len = sizeof(client_addr);
+
+    // Set up signal handling
+    signal(SIGINT, handle_signal);
+    signal(SIGTERM, handle_signal);
 
     // Create socket
     server_fd = socket(AF_INET, SOCK_STREAM, 0);
@@ -77,10 +92,11 @@ int main() {
 
     printf("Server is listening on port 8080...\n");
 
-    while (1) {
+    while (!stop) {  // Run until a stop signal is received
         // Accept a new connection
         client_socket = accept(server_fd, (struct sockaddr*)&client_addr, &client_addr_len);
         if (client_socket < 0) {
+            if (stop) break; // Break if we received a stop signal
             perror("accept");
             continue;
         }
@@ -91,6 +107,6 @@ int main() {
 
     // Close the server socket
     close(server_fd);
+    printf("Server stopped.\n");
     return 0;
 }
-
